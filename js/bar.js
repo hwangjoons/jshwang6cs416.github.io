@@ -57,13 +57,13 @@ function drawDivergingBarChart(g, { data, innerWidth, innerHeight, keyAccessor, 
         .attr("y1", 0)
         .attr("y2", innerHeight);
     
-    const gruops = g.selectAll("g.bar-group")
+    const groups = g.selectAll("g.bar-group")
         .data(data)
         .join("g")
         .attr("class", "bar-group")
         .attr("transform", (d) => `translate(0, ${y(keyAccessor(d))})`);
 
-    gruops.append("text")
+    groups.append("text")
         .attr("class", "metric-label")
         .attr("x", -10)
         .attr("y", y.bandwidth() / 2)
@@ -71,7 +71,7 @@ function drawDivergingBarChart(g, { data, innerWidth, innerHeight, keyAccessor, 
         .attr("text-anchor", "end")
         .text((d) => labelAccessor(d));
 
-    gruops.append("rect")
+    groups.append("rect")
         .attr("class", (d) => `bar ${keyAccessor(d) === activeKey ? "active" : ""}`)
         .attr("x", (d) => x(Math.min(0, valueAccessor(d))))
         .attr("width", (d) => Math.abs(x(valueAccessor(d)) - x(0)))
@@ -82,13 +82,13 @@ function drawDivergingBarChart(g, { data, innerWidth, innerHeight, keyAccessor, 
         .on("mouseover", (event, d) => onHover(d, event))
         .on("mouseout", () => Tooltip.hide());
 
-    gruops.append("text")
+    groups.append("text")
         .attr("class", "value-label")
-        .attr("x", (d) => x(valueAccessor(d)) + (valueAccessor(d) => 0 ? 8 : -8 ))
+        .attr("x", (d) => x(valueAccessor(d)) + (valueAccessor(d) >= 0 ? 8 : -8 ))
         .attr("y", y.bandwidth() / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
         .text((d) => d3.format("+.2f")(valueAccessor(d)));
 
-    return { x, y};
+    return { x, yBand: y };
 }
