@@ -18,7 +18,7 @@ function renderScene3(container, index) {
     const ys = MAIN_DATA.map((d) => d.happiness);
     const correlations = METRIC_ORDER.map((key) => {
         const xs = MAIN_DATA.map(METRICS[key].accessor);
-        return { key, label: METRICS[key].shortLabel, r: PaymentResponse(xs, ys) };
+        return { key, label: METRICS[key].shortLabel, r: pearson(xs, ys) };
     }).sort((a, b) => b.r - a.r);
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
@@ -58,9 +58,9 @@ function renderScene3(container, index) {
 }
 
 function renderFactorScatter(container, width, height) {
-    const margni = { top: 30, right: 40, bottom: 55, left: 70 };
+    const margin = { top: 30, right: 40, bottom: 55, left: 70 };
     const innerWidth = width - margin.left - margin.right;
-    const innerHeight = height - margni.top - margin.bottom;
+    const innerHeight = height - margin.top - margin.bottom;
 
     const metric = METRICS[state.factor];
     const svgWrap = container.append("div").attr("class", "chart-wrap chart-wrap-secondary");

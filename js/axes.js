@@ -11,7 +11,7 @@ function drawYAxis(g, { y, ticks = 6, format }) {
      .call(d3.axisLeft(y).ticks(ticks).tickFormat(format).tickSizeOuter(0));
 }
 
-function drawTitle(g, { text, x, y, rotate = false }) {
+function drawAxisTitle(g, { text, x, y, rotate = false }) {
     const title = g.append("text")
         .attr("class", "axis-title")
         .attr("text-anchor", "middle")
@@ -22,8 +22,4 @@ function drawTitle(g, { text, x, y, rotate = false }) {
     if (rotate) {
         title.attr("transform", "rotate(-90)");
     }
-}
-
-function drawTitle(g, options) {
-    return drawAxisTitle(g, options);
 }
