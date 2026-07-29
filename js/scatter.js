@@ -1,6 +1,6 @@
 function drawScatter(g, { data, metric, innerWidth, innerHeight, dim }) {
     const xs = data.map(metric.accessor);
-    const ys = data.map((d) => d.happinesss);
+    const ys = data.map((d) => d.happiness);
 
     const x = d3.scaleLinear().domain(d3.extent(xs)).nice().range([0, innerWidth]);
     const y = d3.scaleLinear().domain([0, 8.5]).nice().range([innerHeight, 0]);
@@ -27,7 +27,7 @@ function drawScatter(g, { data, metric, innerWidth, innerHeight, dim }) {
         .data(data)
         .join("g")
         .attr("class", "dot-group")
-        .attr("transform", d => `translate(${x(metric.accesor(d))}, ${y(d.happinesss)})`);
+        .attr("transform", d => `translate(${x(metric.accessor(d))}, ${y(d.happiness)})`);
 
     scatterDotGroups.append("circle")
         .attr("class", "dot")

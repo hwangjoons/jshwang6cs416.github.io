@@ -37,7 +37,7 @@ async function renderScene1(container, index) {
         return;
     }
 
-    const counrties = topojson.feature(_worldTopology, _worldTopology.objects.countries);
+    const countries = topojson.feature(_worldTopology, _worldTopology.objects.countries);
     const dataByMapName = new Map(MAIN_DATA.map((d) => [d.mapName, d]));
     const n = MAIN_DATA.length;
     const passesFilter = RANK_FILTERS[state.rankFilter];
@@ -57,8 +57,7 @@ async function renderScene1(container, index) {
         .attr("d", path)
         .attr("fill", (d) => {
             const rec = dataByMapName.get(d.properties.name);
-            if (!rec) return 1;
-            return passesFilter(rec, n) ? 1 : 0.18;
+            return rec ? HAPPINESS_COLOR(rec.happiness) : INK.surface;
         })
         .style("cursor", (d) => (dataByMapName.get(d.properties.name) ? "pointer" : "default"))
         .on("mousemove", (event, d) => {
@@ -67,7 +66,7 @@ async function renderScene1(container, index) {
             Tooltip.show({
                 title: rec.name,
                 rows: [
-                    { label: "Happiness", value: `${d3.format(".2f"(rec.happiness))} / 10`},
+                    { label: "Happiness", value: `${d3.format(".2f")(rec.happiness)} / 10`},
                     { label: "Rank", value: `#${rec.rank} of ${n}` }
                 ]
             }, event);
@@ -90,7 +89,7 @@ async function renderScene1(container, index) {
     if (topXY) {
         annotations.push({
             note: { title: top.name, label: `Highest happiness score: ${top.happiness.toFixed(1)} / 10`, wrap: 150},
-            x: bottomXY[0], y: bottomXY[1], dx: - 50, dy: 40,
+            x: topXY[0], y: topXY[1], dx: - 50, dy: 40,
             color: INK.primary
         });
     }

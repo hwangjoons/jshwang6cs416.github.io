@@ -56,7 +56,7 @@ const METRIC_ORDER = ["gdp_per_capita", "social_support", "life_expectancy", "fr
 const RANK_FILTERS = {
     All: (d, n) => true,
     "Top 10": (d, n) => d.rank <= 10,
-    "Bottom 10": (d, n) => d.rank > n - 20
+    "Bottom 10": (d, n) => d.rank > n - 10
 }
 
 const RANK_FILTER_ORDER = ["All", "Top 10", "Bottom 10"];
@@ -70,7 +70,7 @@ async function loadMainData(url) {
         .map((row) => ({
             name: row["Country or region"],
             rank: Number(row["Overall rank"]),
-            mapName: Number(MAP_NAME_ALIASES[row["Country or region"]] || row["Country or region"]),
+            mapName: MAP_NAME_ALIASES[row["Country or region"]] || row["Country or region"],
             happiness: Number(row["Score"]),
             gdp_per_capita: Number(row["GDP per capita"]),
             social_support: Number(row["Social support"]),

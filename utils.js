@@ -1,4 +1,4 @@
-const MAIN_COLOR = d3.scaleLinear()
+const HAPPINESS_COLOR = d3.scaleLinear()
     .domain([2, 4.5, 6, 8])
     .range(["#8dc5f4", "#5678e7", "#345abf", "#1c256b"])
     .clamp(true);
@@ -36,7 +36,7 @@ const Tooltip = (() => {
         titleEl.text(title  || "");
         rowsEl.selectAll("div.tooltip-row").remove();
 
-        const row = rowsEl.selectAll("div.tooltip-row").data(rows || []).join("div").attr("class", "tootltip-row");
+        const row = rowsEl.selectAll("div.tooltip-row").data(rows || []).join("div").attr("class", "tooltip-row");
 
         row.append("span").attr("class", "tooltip-label").text((d) => d.label);
         row.append("span").attr("class", "tooltip-value").text((d) => d.value);
@@ -58,7 +58,7 @@ const Tooltip = (() => {
 
 function drawAnnotations(svg, annotations) {
     svg.selectAll("g.annotation-group").remove();
-    if (!annotations || annotations.length) return;
+    if (!annotations || !annotations.length) return;
 
     const group = svg.append("g").attr("class", "annotation-group");
 

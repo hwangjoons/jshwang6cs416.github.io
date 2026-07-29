@@ -66,7 +66,7 @@ function drawDivergingBarChart(g, { data, innerWidth, innerHeight, keyAccessor, 
     gruops.append("text")
         .attr("class", "metric-label")
         .attr("x", -10)
-        .attr("y", y.bandWidth() / 2)
+        .attr("y", y.bandwidth() / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "end")
         .text((d) => labelAccessor(d));
@@ -89,6 +89,6 @@ function drawDivergingBarChart(g, { data, innerWidth, innerHeight, keyAccessor, 
         .attr("dy", "0.35em")
         .attr("text-anchor", "middle")
         .text((d) => d3.format("+.2f")(valueAccessor(d)));
-        
+
     return { x, y};
 }
