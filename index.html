@@ -4,9 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hello World</title>
+  <title>World Happiness Narrative Visualizations</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3"></script>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This site is live on GitHub Pages.</p>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">Github Pages</p>
+      <h1>World Happiness Narrative Visualizations</h1>
+      <p class="intro">This narrative view uses the 2019 World happiness dataset</p>
+    </header>
+
+    <nav class="step-nav" aria-label="Scene navigation">
+      <div id="step-dots"></div>
+    </nav>
+    <section id="scene-container"></section>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="utils.js"></script>
+  <script src="js/axes.js"></script>
+  <script src="js/bar.js"></script>
+  <script src="js/scatter.js"></script>
+  <script src="js/scene1.js"></script>
+  <script src="js/scene2.js"></script>
+  <script src="js/scene3.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
