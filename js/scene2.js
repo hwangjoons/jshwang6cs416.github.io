@@ -68,12 +68,15 @@ function renderScene2(container, index) {
         return;
     }
 
+    const detailPanel = container.append("div").attr("class", "detail-panel").style("display", "none");
+
     const { x, y } = drawScatter(g, {
         data: filteredData,
         metric,
         innerWidth,
         innerHeight,
-        dim: (d) => !RANK_FILTERS[state.rankFilter](d, MAIN_DATA.length)
+        dim: (d) => !RANK_FILTERS[state.rankFilter](d, MAIN_DATA.length),
+        detailPanel
     });
 
     const spotlight = filteredData.find((d) => d.name === state.spotlightCountry);

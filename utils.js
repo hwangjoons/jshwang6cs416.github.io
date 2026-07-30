@@ -81,6 +81,37 @@ function drawAnnotations(svg, annotations) {
     });
 }
 
+function renderCountryDetailPanel(panel, d) {
+    panel.style("display", null).html("");
+
+    const header = panel.append("div").attr("class", "detail-panel-header");
+    header.append("span").attr("class", "detail-panel-title").text(d.name);
+    header.append("button")
+        .attr("class", "detail-panel-close")
+        .attr("type", "button")
+        .text("×")
+        .on("click", () => panel.style("display", "none"));
+
+    const rows = [
+        { label: "Rank", value: `#${d.rank} of ${MAIN_DATA.length}` },
+        { label: "Continent", value: d.continent },
+        { label: "Happiness", value: d3.format(".2f")(d.happiness) },
+        ...METRIC_ORDER.map((key) => ({
+            label: METRICS[key].shortLabel,
+            value: METRICS[key].format(METRICS[key].accessor(d))
+        }))
+    ];
+
+    const list = panel.append("div").attr("class", "detail-panel-rows");
+    const row = list.selectAll("div.detail-panel-row")
+        .data(rows)
+        .join("div")
+        .attr("class", "detail-panel-row");
+
+    row.append("span").attr("class", "detail-panel-label").text((r) => r.label);
+    row.append("span").attr("class", "detail-panel-value").text((r) => r.value);
+}
+
 function pearson(xs, ys) {
     const n = xs.length;
     const meanX = d3.mean(xs);

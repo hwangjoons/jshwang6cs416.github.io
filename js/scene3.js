@@ -98,13 +98,16 @@ function renderFactorScatter(container, width, height, index) {
         .attr("class", "chart-svg");
 
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+    const detailPanel = container.append("div").attr("class", "detail-panel").style("display", "none");
+
     const { x, y, slope, intercept } = drawScatter(g, {
         data: MAIN_DATA,
         metric,
         innerWidth,
         innerHeight,
         highlightData,
-        labelDots: true
+        labelDots: true,
+        detailPanel
     });
 
     const xs = MAIN_DATA.map(metric.accessor);
