@@ -54,10 +54,10 @@ function renderScene3(container, index) {
         }
     ]);
 
-    renderCountryComparison(container, width, scatterHeight, index);
+    renderFactorScatter(container, width, scatterHeight, index);
 }
 
-function renderCountryComparison(container, width, height, index) {
+function renderFactorScatter(container, width, height, index) {
     const margin = { top: 30, right: 40, bottom: 55, left: 70 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;

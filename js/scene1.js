@@ -31,7 +31,7 @@ async function renderScene1(container, index) {
     if (state.rankFilter === "All") {
         drawLegend(svgWrap);
     } else {
-        drawRankedList(svgWrwap, MAIN_DATA, state.rankFilter, n);
+        drawRankedList(svgWrap, MAIN_DATA, state.rankFilter, n);
     }
 
     try {

@@ -53,7 +53,7 @@ function drawScatter(g, { data, metric, innerWidth, innerHeight, dim, highlightD
             Tooltip.show({ title: d.name,
                 rows: [
                     { label: "Happiness", value: d3.format(".2f")(d.happiness) },
-                    { label: "Rank", value: `#${d.rank} of ${MAIN_DATA}.length}` },
+                    { label: "Rank", value: `#${d.rank} of ${MAIN_DATA}.length` },
                     { label: metric.label, value: metric.format(metric.accessor(d)) }
                 ]
             }, event);

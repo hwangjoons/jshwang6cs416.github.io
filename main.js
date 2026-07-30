@@ -4,7 +4,8 @@ const state = {
     factor: "gdp_per_capita",
     continent: "All",
     countryA: "Finland",
-    countryB: "United States"
+    countryB: "United States",
+    spotlightCountry: "Costa Rica"
 };
 
 function renderSceneSection(index) {
