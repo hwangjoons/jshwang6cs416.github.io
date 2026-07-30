@@ -171,6 +171,12 @@ body {
   stroke-width: 1.5;
 }
 
+.dot-selected {
+  stroke: var(--accent);
+  stroke-width: 3px;
+  opacity: 1 !important;
+}
+
 .trend-line,
 .zero-line {
   stroke: #94a3b8;

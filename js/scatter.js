@@ -62,6 +62,7 @@ function drawScatter(g, { data, metric, innerWidth, innerHeight, dim, highlightD
             Tooltip.hide();
         })
         .on("click", (event, d) => {
+            scatterDotGroups.select("circle.dot").classed("dot-selected", (dd) => dd === d);
             if (detailPanel) renderCountryDetailPanel(detailPanel, d);
         });
 
