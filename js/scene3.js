@@ -84,15 +84,15 @@ function renderFactorScatter(container, width, height, index) {
         });
     }
 
-    buildSelect("Country A", state.countryA, state.countryB, (value) => { state.countryA = value; });
-    buildSelect("Country B", state.countryB, state.countryA, (value) => { state.countryB = value; });
+    buildSelect("Country A", state.country1, state.country2, (value) => { state.country1 = value; });
+    buildSelect("Country B", state.country2, state.country1, (value) => { state.country2 = value; });
 
-    const countryA = MAIN_DATA.find((d) => d.name === state.countryA);
-    const countryB = MAIN_DATA.find((d) => d.name === state.countryB);
+    const countryA = MAIN_DATA.find((d) => d.name === state.country1);
+    const countryB = MAIN_DATA.find((d) => d.name === state.country2);
     const highlightData = [countryA, countryB].filter(Boolean);
 
     const svgWrap = container.append("div").attr("class", "chart-wrap chart-wrap-secondary");
-    svgWrap.append("h3").attr("class", "sub-chart-title").text(`${state.countryA} vs. ${state.countryB}: Happiness vs. ${metric.label}`);
+    svgWrap.append("h3").attr("class", "sub-chart-title").text(`${state.country1} vs. ${state.country2}: Happiness vs. ${metric.label}`);
     const svg = svgWrap.append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
         .attr("class", "chart-svg");
