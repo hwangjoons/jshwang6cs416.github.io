@@ -17,11 +17,11 @@ async function renderScene1(container, index) {
             state.rankFilter = d;
             rerenderSceneSection(index);
         });
-    });
 
-    renderRankRangeSlider(container, n, state.rankRange, (newRange) => {
-        state.rankRange = newRange;
-        scheduleUpdate();
+        renderRankRangeSlider(c, n, state.rankRange, (newRange) => {
+            state.rankRange = newRange;
+            scheduleUpdate();
+        });
     });
 
     function combinedPasses(d) {
