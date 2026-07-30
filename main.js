@@ -3,8 +3,8 @@ const state = {
     metric: "gdp_per_capita",
     factor: "gdp_per_capita",
     continent: "All",
-    countryA: "Finland",
-    countryB: "United States",
+    country1: "Finland",
+    country2: "United States",
     spotlightCountry: "United States"
 };
 
