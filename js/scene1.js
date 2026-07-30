@@ -19,6 +19,11 @@ async function renderScene1(container, index) {
         });
     });
 
+    renderRankRangeSlider(container, n, state.rankRange, (newRange) => {
+        state.rankRange = newRange;
+        scheduleUpdate();
+    });
+
     function combinedPasses(d) {
         return RANK_FILTERS[state.rankFilter](d, n)
             && d.rank >= state.rankRange[0]
@@ -77,11 +82,6 @@ async function renderScene1(container, index) {
             updateListArea();
         });
     }
-
-    renderRankRangeSlider(container, n, state.rankRange, (newRange) => {
-        state.rankRange = newRange;
-        scheduleUpdate();
-    });
 
     try {
         if (!_worldTopology) {
