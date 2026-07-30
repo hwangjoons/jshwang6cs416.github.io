@@ -1,7 +1,10 @@
 const state = {
     rankFilter: "All",
     metric: "gdp_per_capita",
-    factor: "gdp_per_capita"
+    factor: "gdp_per_capita",
+    continent: "All",
+    countryA: "Finland",
+    countryB: "United States"
 };
 
 function renderSceneSection(index) {

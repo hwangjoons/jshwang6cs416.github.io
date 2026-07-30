@@ -19,6 +19,20 @@ function renderScene2(container, index) {
             });
     });
 
+        container.append("div").attr("class", "scene-controls").call((c) => {
+        c.append("span").attr("class", "control-label").text("Continent:");
+        const group = c.append("div").attr("class", "chip-group");
+        group.selectAll("button.chip")
+            .data(CONTINENT_ORDER)
+            .join("button")
+            .attr("class", (d) => `chip${d === state.metric ? " chip-active": ""}`)
+            .text((d) => d)
+            .on("click", (event, d) => {
+                state.continent = d;
+                rerenderSceneSection(index);
+            });
+    });
+
     const svgWrap = container.append("div").attr("class", "chart-wrap");
     const svg = svgWrap.append("svg")
         .attr("viewBox", `0 0 ${width} ${height}`)
@@ -29,16 +43,24 @@ function renderScene2(container, index) {
     const metric = METRICS[state.metric];
     const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
 
+    const filteredData = state.continent === "All"
+        ? MAIN_DATA
+        : MAIN_DATA.filter((d) => d.continent === state.continent);
+
+    if (!filteredData.length) {
+        svgWrap.append("p").attr("class", "chart-status").text("No countries in this continent for the current dataset");
+    }
+
     const { x, y } = drawScatter(g, {
-        data: MAIN_DATA,
+        data: filteredData,
         metric,
         innerWidth,
         innerHeight,
         dim: (d) => !RANK_FILTERS[state.rankFilter](d, MAIN_DATA.length)
     });
 
-    const costaRica = MAIN_DATA.find((d) => d.name === "Costa Rica");
-    const usa = MAIN_DATA.find((d) => d.name === "United States");
+    const costaRica = filteredData.find((d) => d.name === "Costa Rica");
+    const usa = filteredData.find((d) => d.name === "United States");
     const annotations = [];
     if (costaRica) {
         annotations.push({

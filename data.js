@@ -6,6 +6,50 @@ const MAP_NAME_ALIASES = {
     "Bosnia and Herzegovina": "Bosnia and Herz."
 };
 
+const COUNTRY_CONTINENT = {
+    "Finland": "Europe", "Denmark": "Europe", "Norway": "Europe", "Iceland": "Europe",
+    "Netherlands": "Europe", "Switzerland": "Europe", "Sweden": "Europe", "New Zealand": "Australia",
+    "Canada": "North America", "Austria": "Europe", "Australia": "Australia", "Costa Rica": "North America",
+    "Israel": "Asia", "Luxembourg": "Europe", "United Kingdom": "Europe", "Ireland": "Europe",
+    "Germany": "Europe", "Belgium": "Europe", "United States": "North America", "Czech Republic": "Europe",
+    "United Arab Emirates": "Asia", "Malta": "Europe", "Mexico": "North America", "France": "Europe",
+    "Taiwan": "Asia", "Chile": "South America", "Guatemala": "North America", "Saudi Arabia": "Asia",
+    "Qatar": "Asia", "Spain": "Europe", "Panama": "North America", "Brazil": "South America",
+    "Uruguay": "South America", "Singapore": "Asia", "El Salvador": "North America", "Italy": "Europe",
+    "Bahrain": "Asia", "Slovakia": "Europe", "Trinidad & Tobago": "North America", "Poland": "Europe",
+    "Uzbekistan": "Asia", "Lithuania": "Europe", "Colombia": "South America", "Slovenia": "Europe",
+    "Nicaragua": "North America", "Kosovo": "Europe", "Argentina": "South America", "Romania": "Europe",
+    "Cyprus": "Europe", "Ecuador": "South America", "Kuwait": "Asia", "Thailand": "Asia",
+    "Latvia": "Europe", "South Korea": "Asia", "Estonia": "Europe", "Jamaica": "North America",
+    "Mauritius": "Africa", "Japan": "Asia", "Honduras": "North America", "Kazakhstan": "Asia",
+    "Bolivia": "South America", "Hungary": "Europe", "Paraguay": "South America", "Northern Cyprus": "Europe",
+    "Peru": "South America", "Portugal": "Europe", "Pakistan": "Asia", "Russia": "Europe",
+    "Philippines": "Asia", "Serbia": "Europe", "Moldova": "Europe", "Libya": "Africa",
+    "Montenegro": "Europe", "Tajikistan": "Asia", "Croatia": "Europe", "Hong Kong": "Asia",
+    "Dominican Republic": "North America", "Bosnia and Herzegovina": "Europe", "Turkey": "Asia", "Malaysia": "Asia",
+    "Belarus": "Europe", "Greece": "Europe", "Mongolia": "Asia", "North Macedonia": "Europe",
+    "Nigeria": "Africa", "Kyrgyzstan": "Asia", "Turkmenistan": "Asia", "Algeria": "Africa",
+    "Morocco": "Africa", "Azerbaijan": "Asia", "Lebanon": "Asia", "Indonesia": "Asia",
+    "China": "Asia", "Vietnam": "Asia", "Bhutan": "Asia", "Cameroon": "Africa",
+    "Bulgaria": "Europe", "Ghana": "Africa", "Ivory Coast": "Africa", "Nepal": "Asia",
+    "Jordan": "Asia", "Benin": "Africa", "Congo (Brazzaville)": "Africa", "Gabon": "Africa",
+    "Laos": "Asia", "South Africa": "Africa", "Albania": "Europe", "Venezuela": "South America",
+    "Cambodia": "Asia", "Palestinian Territories": "Asia", "Senegal": "Africa", "Somalia": "Africa",
+    "Namibia": "Africa", "Niger": "Africa", "Burkina Faso": "Africa", "Armenia": "Asia",
+    "Iran": "Asia", "Guinea": "Africa", "Georgia": "Asia", "Gambia": "Africa",
+    "Kenya": "Africa", "Mauritania": "Africa", "Mozambique": "Africa", "Tunisia": "Africa",
+    "Bangladesh": "Asia", "Iraq": "Asia", "Congo (Kinshasa)": "Africa", "Mali": "Africa",
+    "Sierra Leone": "Africa", "Sri Lanka": "Asia", "Myanmar": "Asia", "Chad": "Africa",
+    "Ukraine": "Europe", "Ethiopia": "Africa", "Swaziland": "Africa", "Uganda": "Africa",
+    "Egypt": "Africa", "Zambia": "Africa", "Togo": "Africa", "India": "Asia",
+    "Liberia": "Africa", "Comoros": "Africa", "Madagascar": "Africa", "Lesotho": "Africa",
+    "Burundi": "Africa", "Zimbabwe": "Africa", "Haiti": "North America", "Botswana": "Africa",
+    "Syria": "Asia", "Malawi": "Africa", "Yemen": "Asia", "Rwanda": "Africa",
+    "Tanzania": "Africa", "Afghanistan": "Asia", "Central African Republic": "Africa", "South Sudan": "Africa"
+};
+
+const CONTINENT_ORDER = ["All", "Africa", "Asia", "Europe", "North America", "South America", "Australia"];
+
 const METRICS = {
     gdp_per_capita: {
         key: "gdp_per_capita",
@@ -71,6 +115,7 @@ async function loadMainData(url) {
             name: row["Country or region"],
             rank: Number(row["Overall rank"]),
             mapName: MAP_NAME_ALIASES[row["Country or region"]] || row["Country or region"],
+            continent: COUNTRY_CONTINENT[row["Country or region"]] || "Unknown",
             happiness: Number(row["Score"]),
             gdp_per_capita: Number(row["GDP per capita"]),
             social_support: Number(row["Social support"]),

@@ -21,11 +21,18 @@ async function renderScene1(container, index) {
     const svgWrap = container.append("div").attr("class", "chart-wrap");
     const svg = svgWrap.append("svg").attr("viewBox", `0 0 ${width} ${height}`)
         .attr("class", "chart-svg");
-    
+
     const mapLayer = svg.append("g").attr("class", "map-layer");
     const status = svgWrap.append("div").attr("class", "chart-status").text("Loading world map...");
 
-    drawLegend(svgWrap);
+    const n = MAIN_DATA.length;
+    const passesFilter = RANK_FILTERS[state.rankFilter];
+
+    if (state.rankFilter === "All") {
+        drawLegend(svgWrap);
+    } else {
+        drawRankedList(svgWrwap, MAIN_DATA, state.rankFilter, n);
+    }
 
     try {
         if (!_worldTopology) {
@@ -39,13 +46,11 @@ async function renderScene1(container, index) {
 
     const countries = topojson.feature(_worldTopology, _worldTopology.objects.countries);
     const dataByMapName = new Map(MAIN_DATA.map((d) => [d.mapName, d]));
-    const n = MAIN_DATA.length;
-    const passesFilter = RANK_FILTERS[state.rankFilter];
 
     const projection = d3.geoNaturalEarth1().fitSize(
         [width - margin.left - margin.right, height - margin.top - margin.bottom], countries
     );
-    
+
     const path = d3.geoPath(projection);
 
     const g = mapLayer.attr("transform", `translate(${margin.left},${margin.top})`);
@@ -58,6 +63,11 @@ async function renderScene1(container, index) {
         .attr("fill", (d) => {
             const rec = dataByMapName.get(d.properties.name);
             return rec ? HAPPINESS_COLOR(rec.happiness) : INK.surface;
+        })
+        .attr("opacity", (d) => {
+            const rec = dataByMapName.get(d.properties.name);
+            if (!rec) return 1;
+            return passesFilter(rec, n) ? 1 : 0.15;
         })
         .style("cursor", (d) => (dataByMapName.get(d.properties.name) ? "pointer" : "default"))
         .on("mousemove", (event, d) => {
@@ -72,28 +82,6 @@ async function renderScene1(container, index) {
             }, event);
         })
         .on("mouseleave", () => Tooltip.hide());
-
-    const sorted = [...MAIN_DATA].sort((a, b) => b.happiness - a.happiness);
-    const top = sorted[0];
-    const bottom = sorted[sorted.length - 1];
-
-    function centroidFor (record) {
-        const feature = countries.features.find((f) => f.properties.name === record.mapName);
-        if (!feature) return null;
-        return path.centroid(feature);
-    }
-
-    const topXY = centroidFor(top)
-    const bottomXY = centroidFor(bottom);
-    const annotations = [];
-    if (topXY) {
-        annotations.push({
-            note: { title: top.name, label: `Highest happiness score: ${top.happiness.toFixed(1)} / 10`, wrap: 150},
-            x: topXY[0], y: topXY[1], dx: - 50, dy: 40,
-            color: INK.primary
-        });
-    }
-    drawAnnotations(mapLayer, annotations);
 }
 
 function drawLegend(wrap) {
@@ -106,5 +94,22 @@ function drawLegend(wrap) {
         .data(stops)
         .join("span")
         .style("background", (d) => HAPPINESS_COLOR(d));
-    legend.append("span").attr("class", "legend-scale-label").text(`${d3.format(".1f")(low)} -> ${d3.format(".1f")(high)}`)
+    legend.append("span").attr("class", "legend-scale-label").text(`Least happy (${d3.format(".1f")(low)}) → Most happy (${d3.format(".1f")(high)})`);
+}
+
+function drawRankedList(wrap, data, rankFilter, n) {
+    const passesFilter = RANK_FILTERS[rankFilter];
+    const matches = data.filter((d) => passesFilter(d, n)).sort((a, b) => a.rank - b.rank);
+
+    const legend = wrap.append("div").attr("class", "legend legend-rank");
+    legend.append("span").attr("class", "legend-label").text(`${rankFilter} happiness scores`);
+
+    const list = legend.append("div").attr("class", "legend-rank-list");
+    const rows = list.selectAll("div.legend-rank-row")
+        .data(matches)
+        .join("div")
+        .attr("class", "legend-rank-row");
+    
+    rows.append("span").attr("class", "legend-rank-name").text((d) => `#${d.rank} ${d.name}`);
+    rows.append("span").attr("class", "legend-rank-score").text((d) => d3.format(".2f")(d.happiness));
 }

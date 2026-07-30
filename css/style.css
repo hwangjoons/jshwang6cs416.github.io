@@ -186,4 +186,104 @@ body {
   font-weight: 700;
 }
 
+.legend {
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.8rem;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+}
+
+.legend-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.legend-ramp {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 0.35rem;
+}
+
+.legend-ramp span {
+  flex: 1;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.legend-scale-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.legend-rank-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(150px, 1fr));
+  gap: 0.25rem 1.5rem;
+  font-size: 0.85rem;
+}
+
+.legend-rank-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.15rem 0;
+  border-bottom: 1px dashed #e5e7eb;
+}
+
+.legend-rank-name {
+  color: var(--text);
+}
+
+.legend-rank-score {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.dot-label {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.country-picker {
+  margin-bottom: 0.5rem;
+}
+
+.select-field {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.select-field-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.country-select {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.3rem 0.5rem;
+  background: #fff;
+  font: inherit;
+}
+
+.scene-hint {
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.sub-chart-title {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1rem;
+}
+
+.chart-wrap-secondary {
+  margin-top: 1.25rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+}
+
 
