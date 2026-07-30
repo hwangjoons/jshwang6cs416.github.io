@@ -110,6 +110,8 @@ function renderCountryDetailPanel(panel, d) {
 
     row.append("span").attr("class", "detail-panel-label").text((r) => r.label);
     row.append("span").attr("class", "detail-panel-value").text((r) => r.value);
+
+    panel.node().scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
 function pearson(xs, ys) {
