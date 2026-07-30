@@ -1,5 +1,6 @@
 const state = {
     rankFilter: "All",
+    rankRange: [1, 156],
     metric: "gdp_per_capita",
     factor: "gdp_per_capita",
     continent: "All",
