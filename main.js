@@ -5,7 +5,7 @@ const state = {
     continent: "All",
     countryA: "Finland",
     countryB: "United States",
-    spotlightCountry: "Costa Rica"
+    spotlightCountry: "United States"
 };
 
 function renderSceneSection(index) {
