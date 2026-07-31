@@ -37,7 +37,7 @@ function buildSceneSections() {
         h.append("h2").attr("class", "scene-title").text((d, i) => {
             const titles = [
                 "Happiest countries in the world",
-                "Correlation between GDP and Happiness of countries",
+                "Correlation between different metrics and Happiness of countries",
                 "What characteristics contribute to happiness"
             ];
             return titles[i];
